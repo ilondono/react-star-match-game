@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import PlayNumber from './components/PlayNumber.js';
 
  // Color Theme
  const colors = {
@@ -41,7 +42,7 @@ const utils = {
 
 const App = () => {
 
-  const stars = utils.random(1, 9);
+  const [stars, setStars] = useState(utils.random(1, 9));
 
   return (
     <div className="game">  
@@ -56,7 +57,7 @@ const App = () => {
         </div>
 
         <div className="right">
-          {utils.range(1, 9).map(number => <button key={number} className="number">{number}</button>)}
+          {utils.range(1, 9).map(number => <PlayNumber key={number} number={number} />)}
         </div>
 
       </div>
