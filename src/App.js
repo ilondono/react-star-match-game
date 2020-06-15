@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
 
-function App() {
+const App = () => {
+
   return (
     <div className="game">  
-     
+
       <div className="help">
         Pick 1 or more numbers that sum to the number of stars
       </div>  
