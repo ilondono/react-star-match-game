@@ -35,9 +35,10 @@ const App = () => {
     if (utils.sum(newCandidateNums) !== stars) {
       setCandidateNums(newCandidateNums);
     } else {
-      setAvailableNums(availableNums.filter(num => !newCandidateNums.includes(num)));
+      const newAvailableNumbers = availableNums.filter(num => !newCandidateNums.includes(num));
+      setAvailableNums(newAvailableNumbers);
       setCandidateNums([]);
-      setStars(utils.random(1, 9));
+      setStars(utils.randomSumIn(newAvailableNumbers, 9));
     }
 
   }
