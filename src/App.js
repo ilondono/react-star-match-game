@@ -41,6 +41,8 @@ const App = () => {
     },
   };
 
+  const stars = 5;
+
   return (
     <div className="game">  
 
@@ -50,27 +52,11 @@ const App = () => {
 
       <div className="body">
         <div className="left">
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
+          {utils.range(1, stars).map(starId => <div key={starId} className="star"/>)}
         </div>
 
         <div className="right">
-          <button className="number">1</button>
-          <button className="number">2</button>
-          <button className="number">3</button>
-          <button className="number">4</button>
-          <button className="number">5</button>
-          <button className="number">6</button>
-          <button className="number">7</button>
-          <button className="number">8</button>
-          <button className="number">9</button>
+          {utils.range(1, 9).map(number => <button key={number} className="number">{number}</button>)}
         </div>
 
       </div>
