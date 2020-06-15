@@ -1,13 +1,6 @@
-// Color Theme
-export const colors = {
-    available: 'lightgray',
-    used: 'lightgreen',
-    wrong: 'lightcoral',
-    candidate: 'deepskyblue',
-  };
   
   // Math science
-export const utils = {
+const utils = {
     // Sum an array
     sum: arr => arr.reduce((acc, curr) => acc + curr, 0),
   
