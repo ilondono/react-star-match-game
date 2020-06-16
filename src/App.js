@@ -30,7 +30,9 @@ const App = () => {
       return;
     }
 
-    const newCandidateNums = candidateNums.concat(number);
+    const newCandidateNums = currentStatus === 'available' 
+        ? candidateNums.concat(number)       
+        : candidateNums.filter(n => number !== n);
 
     if (utils.sum(newCandidateNums) !== stars) {
       setCandidateNums(newCandidateNums);
