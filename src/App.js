@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import utils from './utilities.js';
 import PlayNumber from './components/PlayNumber.js';
@@ -12,10 +12,22 @@ const App = () => {
   const [stars, setStars] = useState(utils.random(1, 9));
   const [availableNums, setAvailableNums] = useState(numbersIds);
   const [candidateNums, setCandidateNums] = useState([]);
+  const [secondsLeft, setSecondsLeft ] = useState(10);
+
+  useEffect(() => {
+
+    if (secondsLeft > 0 && availableNums.length > 0) {
+      const timerId = setTimeout(() => {
+        setSecondsLeft(secondsLeft - 1)
+      }, 1000);
+
+      return () => clearTimeout(timerId);
+    }
+  });
 
   
   const candidatesAreWrong = utils.sum(candidateNums) > stars;
-  const gameIsDone = availableNums.length === 0;
+  const gameStatus = availableNums.length === 0 ? 'won' : secondsLeft === 0 ? 'lost' : 'active';
 
   const numberStatus = (number) => {
     if (!availableNums.includes(number)) {
@@ -31,7 +43,7 @@ const App = () => {
 
   const onNumberClick = (number, currentStatus) => {
 
-    if (currentStatus === 'used') {
+    if (currentStatus === 'used' || gameStatus !== 'active') {
       return;
     }
 
@@ -45,7 +57,7 @@ const App = () => {
       const newAvailableNumbers = availableNums.filter(num => !newCandidateNums.includes(num));
       setAvailableNums(newAvailableNumbers);
       setCandidateNums([]);
-      setStars(utils.randomSumIn(newAvailableNumbers, 9));
+      setStars(utils.randomSumIn(newAvailableNumbers, 9));      
     }
   }
 
@@ -53,6 +65,7 @@ const App = () => {
     setStars(utils.random(1, 9));
     setAvailableNums(numbersIds);
     setCandidateNums([]);
+    setSecondsLeft(10);
   }
 
   return (
@@ -65,8 +78,8 @@ const App = () => {
       <div className="body">
         <div className="left">
           {
-            gameIsDone 
-            ? <PlayAgain onClick={resetGame}/>
+            gameStatus !== 'active' 
+            ? <PlayAgain onClick={resetGame} gameStatus={gameStatus}/>
             : <StarsDisplay count={stars}/>
           }
           
@@ -83,7 +96,7 @@ const App = () => {
 
       </div>
 
-      <div className="timer">Time Remaining: 10</div>
+      <div className="timer">Time Remaining: {secondsLeft}</div>
     </div>
   );
 }
