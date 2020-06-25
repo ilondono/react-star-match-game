@@ -5,7 +5,7 @@ import PlayNumber from './components/PlayNumber.js';
 import StarsDisplay from './components/StarsDisplay.js';
 import PlayAgain from './components/PlayAgain.js';
 
-const App = () => {
+const App = (props) => {
 
   const numbersIds = utils.range(1, 9);
 
@@ -61,13 +61,6 @@ const App = () => {
     }
   }
 
-  const resetGame = () => {
-    setStars(utils.random(1, 9));
-    setAvailableNums(numbersIds);
-    setCandidateNums([]);
-    setSecondsLeft(10);
-  }
-
   return (
     <div className="game">  
 
@@ -79,7 +72,7 @@ const App = () => {
         <div className="left">
           {
             gameStatus !== 'active' 
-            ? <PlayAgain onClick={resetGame} gameStatus={gameStatus}/>
+            ? <PlayAgain onClick={props.startNewGame} gameStatus={gameStatus}/>
             : <StarsDisplay count={stars}/>
           }
           
